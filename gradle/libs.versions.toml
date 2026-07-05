@@ -1,0 +1,47 @@
+[versions]
+payara-micro = "7.2026.5"
+slf4j = "2.0.18"
+commons-text = "1.15.0"
+openapi-ui = "2.1.1"
+mariadb = "2.7.14"
+jdbi3 = "3.54.0"
+
+[libraries]
+commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
+openapi-ui = { module = "org.microprofile-ext.openapi-ext:openapi-ui", version.ref = "openapi-ui" }
+#logging
+slf4j-jdk14 = { module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j" }
+log4j-over-slf4j = { module = "org.slf4j:log4j-over-slf4j", version.ref = "slf4j" }
+#db
+mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version.ref = "mariadb" }
+jdbi3-core = { module = "org.jdbi:jdbi3-core", version.ref = "jdbi3" }
+jdbi3-sqlobject = { module = "org.jdbi:jdbi3-sqlobject", version.ref = "jdbi3" }
+#payara-provided
+payara-bom = { module = "fish.payara.api:payara-bom", version.ref = "payara-micro" }
+payara-micro = { module = "fish.payara.extras:payara-micro", version.ref = "payara-micro" }
+microprofile-openapi-api = { module = "org.eclipse.microprofile.openapi:microprofile-openapi-api" }
+microprofile-config-api = { module = "org.eclipse.microprofile.config:microprofile-config-api" }
+jackson-jaxrs-json-provider = { module = "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
+jackson-dataformat-xml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml" }
+jersey-hk2 = { module = "org.glassfish.jersey.inject:jersey-hk2" }
+jersey-client = { module = "org.glassfish.jersey.core:jersey-client" }
+jersey-media-json-jackson = { module = "org.glassfish.jersey.media:jersey-media-json-jackson" }
+jersey-server = { module = "org.glassfish.jersey.core:jersey-server" }
+jakarta-jakartaee-api = { module = "jakarta.platform:jakarta.jakartaee-api" }
+jakarta-xml-bind-api = { module = "jakarta.xml.bind:jakarta.xml.bind-api" }
+jakarta-ws-rs-api = { module = "jakarta.ws.rs:jakarta.ws.rs-api" }
+jakarta-activation = { module = "jakarta.activation:jakarta.activation-api" }
+jakarta-faces = { module = "org.glassfish:jakarta.faces" }
+jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api" }
+#payara doesn't use jsr310, but it specifies the jackson-bom, so we use the same version
+jackson-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"}
+
+[bundles]
+logging = ["slf4j-jdk14", "log4j-over-slf4j"]
+jdbi = ["jdbi3-core", "jdbi3-sqlobject"]
+jackson = ["jackson-jaxrs-json-provider", "jackson-core", "jackson-databind", "jackson-dataformat-xml"]
+jersey = ["jersey-hk2", "jersey-client", "jersey-media-json-jackson", "jersey-server"]
+jakarta = ["jakarta-jakartaee-api", "jakarta-xml-bind-api", "jakarta-ws-rs-api", "jakarta-activation", "jakarta-faces", "jakarta-validation-api"]
+microprofile = ["microprofile-openapi-api", "microprofile-config-api"]

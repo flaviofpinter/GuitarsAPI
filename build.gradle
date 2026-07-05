@@ -1,0 +1,126 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'dev.pinter'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://nexus.payara.fish/repository/payara-artifacts' }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-Xlint:deprecation"
+    options.compilerArgs << "-Xlint:unchecked"
+}
+
+dependencies {
+    //payara provided libraries
+    compileOnly enforcedPlatform(libs.payara.bom)
+    compileOnly libs.payara.micro
+    compileOnly libs.bundles.jakarta
+    compileOnly libs.bundles.microprofile
+    compileOnly libs.bundles.jersey
+    compileOnly libs.bundles.jackson
+}
+
+dependencies {
+    implementation libs.commons.text
+    implementation libs.openapi.ui
+    implementation libs.bundles.logging
+    implementation libs.bundles.jdbi
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('runMicro', Exec) {
+    group = project.name
+    dependsOn clean
+    dependsOn war
+    def launcher = javaToolchains.launcherFor(java.toolchain)
+    def javaJdk = launcher.map { it.metadata.installationPath }
+
+    def payaraJarPath = configurations
+            .compileClasspath
+            .find { it.name =~ 'payara-micro-' + libs.versions.payara.micro.get() + '.jar' }
+            .absolutePath
+    def warFile = tasks.named('war').get().property("archiveFile").get().asFile
+
+    commandLine(
+            javaJdk.get().file("bin/java"),
+            '--add-modules', 'java.se',
+            '--add-exports', 'java.base/jdk.internal.ref=ALL-UNNAMED',
+            '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+            '--add-opens', 'java.base/java.nio=ALL-UNNAMED',
+            '--add-opens', 'java.base/sun.nio.ch=ALL-UNNAMED',
+            '--add-opens', 'java.base/jdk.internal.loader=ALL-UNNAMED',
+            '--add-opens', 'java.management/sun.management=ALL-UNNAMED',
+            '--add-opens', 'jdk.management/com.sun.management.internal=ALL-UNNAMED',
+            '-jar', payaraJarPath,
+            '--rootDir', "${layout.buildDirectory.get().asFile.absolutePath}/${rootProject.name}-root",
+            '--logproperties', System.getProperty('user.dir') + "/log.properties",
+            '--deploy', warFile.absolutePath,
+            '--port', 18080,
+            '--prebootcommandfile', layout.projectDirectory.asFile.absolutePath + "/dist/preboot.cmd",
+            '--addlibs', project.configurations.compileClasspath.findAll { it.name.matches("^slf4j-(jdk14|api)-.*\\.jar") }.join(File.pathSeparator))
+}
+
+tasks.register('copyWarRoot', Copy) {
+    dependsOn war
+    from tasks.named('war').get().property("archiveFile").get().asFile
+    into layout.buildDirectory.get().asFile.absolutePath
+    rename(rootProject.getName() + '-' + version + '.war', 'ROOT.war')
+}
+
+tasks.register('copyDistFiles', Copy) {
+    dependsOn war
+    def buildDist = layout.buildDirectory.get().asFile.absolutePath + "/dist"
+    mkdir buildDist
+    from projectDir.getAbsolutePath() + "/dist"
+    into buildDist
+}
+
+tasks.register('uberJar', Exec) {
+    group = project.name
+    dependsOn war
+    dependsOn copyDistFiles
+    dependsOn copyWarRoot
+    def payaraJarPath = configurations
+            .compileClasspath
+            .find { it.name =~ 'payara-micro-' + libs.versions.payara.micro.get() + '.jar' }
+            .absolutePath
+    def warFile = layout.buildDirectory.file("ROOT.war").get().asFile.toString()
+
+    commandLine(
+            System.getProperty('java.home') + '/bin/java',
+            '--add-modules', 'java.se',
+            '--add-exports', 'java.base/jdk.internal.ref=ALL-UNNAMED',
+            '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+            '--add-opens', 'java.base/java.nio=ALL-UNNAMED',
+            '--add-opens', 'java.base/sun.nio.ch=ALL-UNNAMED',
+            '--add-opens', 'java.base/jdk.internal.loader=ALL-UNNAMED',
+            '--add-opens', 'java.management/sun.management=ALL-UNNAMED',
+            '--add-opens', 'jdk.management/com.sun.management.internal=ALL-UNNAMED',
+            '-jar', payaraJarPath,
+            '--deploy', warFile,
+            '--outputuberjar', layout.buildDirectory.get().asFile.absolutePath + "/dist/servicesapi-" + version + ".jar",
+            '--logproperties', layout.buildDirectory.get().asFile.absolutePath + "/dist/log.properties",
+            '--nocluster',
+            '--addlibs', project.configurations.compileClasspath.findAll { it.name.matches("^slf4j-(jdk14|api)-.*\\.jar") }.join(File.pathSeparator))
+}
