@@ -25,6 +25,15 @@ public class GuitarResource {
     }
 
     @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGuitarById(@PathParam("id") String id) {
+        return Response.ok()
+                .entity(dao.getById(id))
+                .build();
+    }
+
+    @GET
     @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     public Response teste() {

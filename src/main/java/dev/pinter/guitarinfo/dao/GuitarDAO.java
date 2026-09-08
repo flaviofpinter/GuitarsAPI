@@ -16,6 +16,10 @@ public interface GuitarDAO {
     @RegisterConstructorMapper(Guitar.class)
     List<Guitar> getByBrand(@Bind("brand") String brand);
 
+    @SqlQuery("SELECT * FROM guitars WHERE Id = :id")
+    @RegisterConstructorMapper(Guitar.class)
+    List<Guitar> getById(@Bind("id") String id);
+
     @SqlQuery("SELECT DISTINCT(brand) FROM guitars")
     List<String> getBrands();
 

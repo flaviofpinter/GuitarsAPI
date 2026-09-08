@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'war'
+    id 'com.github.node-gradle.node' version '7.0.2'
 }
 
 group = 'dev.pinter'
@@ -124,4 +125,36 @@ tasks.register('uberJar', Exec) {
             '--logproperties', layout.buildDirectory.get().asFile.absolutePath + "/dist/log.properties",
             '--nocluster',
             '--addlibs', project.configurations.compileClasspath.findAll { it.name.matches("^slf4j-(jdk14|api)-.*\\.jar") }.join(File.pathSeparator))
+}
+
+def frontendDir = layout.projectDirectory.dir("frontend")
+
+//tasks.register('npmInstall', Exec) {
+//    workingDir frontendDir
+//
+//    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+//        commandLine 'cmd', '/c', 'npm', 'install'
+//    } else {
+//        commandLine 'npm', 'install'
+//    }
+//}
+
+tasks.register('npmBuild', Exec) {
+    dependsOn npmInstall
+
+    workingDir frontendDir
+
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'npm', 'run', 'build'
+    } else {
+        commandLine 'npm', 'run', 'build'
+    }
+}
+
+tasks.named('war') {
+    dependsOn npmBuild
+
+    from(frontendDir.dir("dist")) {
+        into("")
+    }
 }
