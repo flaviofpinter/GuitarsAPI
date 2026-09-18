@@ -8,9 +8,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
-import java.util.List;
-import java.util.Map;
-
 @Path("/guitars")
 public class GuitarResource {
 
@@ -20,17 +17,18 @@ public class GuitarResource {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getGuitarList(@QueryParam("brand") String brand) {
-        return Response.ok().entity(dao.getByBrand(brand)).build();
+    public Response getGuitarPaginated(
+            @QueryParam("limit") int limit,
+            @QueryParam("offset") int offset,
+            @QueryParam("brand") String brand) {
+        return Response.ok().entity(dao.getPaginated(limit, offset, brand)).build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getGuitarById(@PathParam("id") String id) {
-        return Response.ok()
-                .entity(dao.getById(id))
-                .build();
+        return Response.ok().entity(dao.getById(id)).build();
     }
 
     @GET

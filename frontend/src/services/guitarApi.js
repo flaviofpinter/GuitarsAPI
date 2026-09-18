@@ -1,9 +1,13 @@
 const API_URL = 'http://localhost:18080'
 
-export async function getGuitars(brand = '') {
-    const url = brand ? `${API_URL}/guitars?brand=${encodeURIComponent(brand)}` : `${API_URL}/guitars`
+export async function getGuitars(brand = '', limit = 0, offset = 0) {
+    const params = new URLSearchParams({
+        brand,
+        limit: String(limit),
+        offset: String(offset)
+    })
 
-    const response = await fetch(url)
+    const response = await fetch(`${API_URL}/guitars?${params}`)
 
     if (!response.ok) {
         throw new Error('Erro ao buscar guitarras')

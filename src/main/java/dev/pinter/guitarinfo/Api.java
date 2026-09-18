@@ -1,6 +1,7 @@
 package dev.pinter.guitarinfo;
 
 import com.fasterxml.jackson.core.util.JacksonFeature;
+import dev.pinter.guitarinfo.CorsConfig.CorsFilter;
 import dev.pinter.guitarinfo.controllers.GuitarResource;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -17,7 +18,8 @@ public class Api extends Application {
                 JacksonFeature.class,
                 CustomObjectMapper.class,
                 GenericExceptionMapper.class,
-                GuitarResource.class
+                GuitarResource.class,
+                CorsFilter.class
         );
     }
 

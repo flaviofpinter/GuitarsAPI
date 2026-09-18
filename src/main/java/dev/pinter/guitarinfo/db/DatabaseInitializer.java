@@ -3,6 +3,7 @@ package dev.pinter.guitarinfo.db;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.pinter.guitarinfo.entity.Guitar;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.JdbiException;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,25 +64,30 @@ public class DatabaseInitializer {
             logger.error("Erro criando tabela", e);
         }
         List<CsvRow> guitarras = parseCsv();
-
-        for (CsvRow g : guitarras) {
-            jdbi.useHandle(handle -> {
-                handle.createUpdate(INSERT_GUITARS)
-                        .bind("brand", g.brand)
-                        .bind("model", g.model)
-                        .bind("launchYear", g.launchYear)
-                        .bind("mostFamousUser", g.mostFamousUser)
-                        .bind("primaryColor", g.primaryColorOrFinish)
-                        .bind("colorOrFinish", g.primaryColorOrFinish)
-                        .bind("guitarType", g.guitarType)
-                        .bind("countryOfOrigin", g.countryOfOrigin)
-                        .bind("pickupConfiguration", g.pickupConfiguration)
-                        .bind("bodyWood", g.bodyWood)
-                        .bind("neckConstruction", g.neckConstruction)
-                        .bind("status", g.status)
-                        .execute();
+        try {
+            jdbi.useTransaction(handle -> {
+                for (CsvRow g : guitarras) {
+                    handle.createUpdate(INSERT_GUITARS)
+                            .bind("brand", g.brand)
+                            .bind("model", g.model)
+                            .bind("launchYear", g.launchYear)
+                            .bind("mostFamousUser", g.mostFamousUser)
+                            .bind("primaryColor", g.primaryColorOrFinish)
+                            .bind("colorOrFinish", g.primaryColorOrFinish)
+                            .bind("guitarType", g.guitarType)
+                            .bind("countryOfOrigin", g.countryOfOrigin)
+                            .bind("pickupConfiguration", g.pickupConfiguration)
+                            .bind("bodyWood", g.bodyWood)
+                            .bind("neckConstruction", g.neckConstruction)
+                            .bind("status", g.status)
+                            .execute();
+                }
             });
+        } catch (JdbiException e) {
+            logger.error("Erro importando dados");
+            throw e;
         }
+
         return 0;
     }
 

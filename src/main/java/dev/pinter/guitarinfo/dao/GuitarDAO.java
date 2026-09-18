@@ -8,6 +8,7 @@ import org.jdbi.v3.sqlobject.customizer.BindMethods;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+import org.jdbi.v3.sqlobject.transaction.Transaction;
 
 import java.util.List;
 
@@ -20,8 +21,21 @@ public interface GuitarDAO {
     @RegisterConstructorMapper(Guitar.class)
     List<Guitar> getById(@Bind("id") String id);
 
+    @SqlQuery("""
+            SELECT *
+            FROM guitars
+            WHERE (:brand IS NULL OR :brand = '' OR Brand = :brand)
+            ORDER BY id
+            LIMIT :limit OFFSET :offset
+            """)
+    @RegisterConstructorMapper(Guitar.class)
+    List<Guitar> getPaginated(@Bind("limit") int limit, @Bind("offset") int offset, @Bind("brand") String brand);
+
     @SqlQuery("SELECT DISTINCT(brand) FROM guitars")
     List<String> getBrands();
+
+    @SqlQuery("SELECT * FROM guitars")
+    List<String> getAll();
 
     @SqlUpdate("""
             INSERT INTO guitars
