@@ -13,13 +13,9 @@ public class GuitarImageService {
     private final Client client;
 
     public GuitarImageService() {
-        // Inicializa o cliente usando a variável de ambiente GEMINI_API_KEY
         this.client = Client.builder().build();
     }
 
-    /**
-     * Busca a URL de uma imagem vertical usando todas as colunas do CSV para máxima precisão.
-     */
     public String buscarUrlImagemDetalhada(
             String brand,
             String model,
@@ -33,7 +29,6 @@ public class GuitarImageService {
             String neckConstruction,
             String status
     ) {
-        // Construção do prompt super detalhado
         String prompt = String.format(
                 "Localize a URL pública direta de uma imagem (.jpg ou .png) da seguinte guitarra elétrica específica:\n" +
                         "- Marca: %s\n" +
@@ -56,7 +51,6 @@ public class GuitarImageService {
                 neckConstruction, bodyWood, status
         );
 
-        // Habilita a ferramenta de busca do Google (Grounding)
         Tool searchTool = Tool.builder()
                 .googleSearch(GoogleSearch.builder().build())
                 .build();
@@ -73,13 +67,11 @@ public class GuitarImageService {
             );
 
             if (response.text() != null) {
-                // Limpa possíveis espaços ou quebras de linha acidentais
                 return response.text().trim();
             }
         } catch (Exception e) {
             System.err.println("Erro ao buscar imagem para " + brand + " " + model + ": " + e.getMessage());
         }
-
         return null;
     }
 }
