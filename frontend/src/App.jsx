@@ -6,37 +6,30 @@ import './App.css'
 
 function App() {
   const [screen, setScreen] = useState('catalog')
-  const [selectedGuitarId, setSelectedGuitarId] = useState(null)
+  const [selectedGuitar, setSelectedGuitar] = useState(null)
 
-  // Estado dos favoritos fica no App
+  // Estado dos favoritos
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem('guitarFavorites')
-
     return saved ? JSON.parse(saved) : []
   })
 
-  // Sempre que favoritos mudarem, salva no navegador
   useEffect(() => {
-    localStorage.setItem(
-        'guitarFavorites',
-        JSON.stringify(favorites)
-    )
+    localStorage.setItem('guitarFavorites', JSON.stringify(favorites))
   }, [favorites])
 
   function toggleFavorite(id) {
     setFavorites((current) => {
       if (current.includes(id)) {
-        return current.filter(
-            (favoriteId) => favoriteId !== id
-        )
+        return current.filter((favoriteId) => favoriteId !== id)
       }
-
       return [...current, id]
     })
   }
 
-  function openDetails(id) {
-    setSelectedGuitarId(id)
+  // Recebe a guitarra completa do Catálogo ou dos Favoritos
+  function openDetails(guitar) {
+    setSelectedGuitar(guitar)
     setScreen('details')
   }
 
@@ -53,7 +46,7 @@ function App() {
 
         {screen === 'details' && (
             <GuitarDetails
-                id={selectedGuitarId}
+                guitar={selectedGuitar}
                 onBack={() => setScreen('catalog')}
                 favorites={favorites}
                 onToggleFavorite={toggleFavorite}

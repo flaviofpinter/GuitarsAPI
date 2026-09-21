@@ -32,9 +32,6 @@ button {
     min-height: 100vh;
 }
 
-/* =========================
-   HEADER
-========================= */
 
 .header {
     height: 78px;
@@ -123,9 +120,6 @@ button {
     font-size: 10px;
 }
 
-/* =========================
-   HERO
-========================= */
 
 .catalog-screen {
     width: min(1400px, 86%);
@@ -187,9 +181,6 @@ button {
     transform: rotate(-12deg);
 }
 
-/* =========================
-   CATALOG HEADER
-========================= */
 
 .catalog-header {
     display: flex;
@@ -215,10 +206,6 @@ button {
     color: #8b857d;
     font-size: 13px;
 }
-
-/* =========================
-   FILTERS
-========================= */
 
 .filters {
     display: flex;
@@ -259,9 +246,6 @@ button {
     color: #24221f;
 }
 
-/* =========================
-   GUITAR GRID
-========================= */
 
 .guitar-grid {
     display: grid;
@@ -283,15 +267,30 @@ button {
 
 .guitar-image {
     position: relative;
-    height: 300px;
-    display: grid;
-    place-items: center;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #e9e4dc;
+    overflow: hidden;
 }
 
 .guitar-symbol {
-    font-size: 110px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
     transform: rotate(-12deg);
+}
+
+.guitar-symbol img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
 }
 
 .guitar-type {
@@ -483,10 +482,23 @@ button {
 }
 
 .details-info h1 {
-    margin: 0;
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(42px, 5vw, 68px);
-    line-height: 1;
+    color: #1a1a1a;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+.details-info .eyebrow {
+    color: #8b5a2b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.details-info .description {
+    color: #333333;
 }
 
 .detail-heart {
@@ -732,4 +744,51 @@ button {
     .header nav button {
         padding: 10px 8px;
     }
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd8cf;
+}
+
+.pagination-btn {
+    padding: 10px 20px;
+    border: 1px solid #d7d1c8;
+    background: #faf8f4;
+    color: #24221f;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all .2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: #24221f;
+    color: #f5f2ec;
+    border-color: #24221f;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #24221f;
+}
+
+.pagination-select {
+    padding: 10px 14px;
+    border: 1px solid #d7d1c8;
+    background: #faf8f4;
+    color: #24221f;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
 }
