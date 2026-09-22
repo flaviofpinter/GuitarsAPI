@@ -9,7 +9,7 @@ function GuitarDetails({ guitar, onBack, favorites = [], onToggleFavorite }) {
                 </button>
                 <div className="empty-favorites">
                     <h2>Guitarra não encontrada</h2>
-                    <p>Nenhuma informação disponível para exibição.</p>
+                    <p>Nenhuma informação disponível para exibição no momento.</p>
                 </div>
             </section>
         )
@@ -19,26 +19,38 @@ function GuitarDetails({ guitar, onBack, favorites = [], onToggleFavorite }) {
 
     return (
         <section className="details-screen">
-            <button className="back-button" onClick={onBack}>
-                ← Voltar para o catálogo
-            </button>
+            {/* Navegação de Topo */}
+            <div className="details-nav">
+                <button className="back-button" onClick={onBack}>
+                    ← Voltar para o catálogo
+                </button>
+                <div className="breadcrumb">
+                    <span>Catálogo</span> / <span>{guitar.brand || 'Marca'}</span> / <strong className="active">{guitar.model}</strong>
+                </div>
+            </div>
 
             <div className="details-layout">
-                <div className="details-image">
-                    {guitar.guitarType && <span>{guitar.guitarType}</span>}
-
-                    <div className="details-symbol">
-                        {guitar.imageUrl ? (
-                            <img src={guitar.imageUrl} alt={guitar.model} />
-                        ) : (
-                            '🎸'
+                {/* Showcase Visual do Produto */}
+                <div className="details-gallery">
+                    <div className="details-image-container">
+                        {guitar.guitarType && (
+                            <span className="details-type-badge">{guitar.guitarType}</span>
                         )}
+
+                        <div className="details-symbol">
+                            {guitar.imageUrl ? (
+                                <img src={guitar.imageUrl} alt={`${guitar.brand} ${guitar.model}`} />
+                            ) : (
+                                <span className="fallback-icon">🎸</span>
+                            )}
+                        </div>
                     </div>
                 </div>
 
+                {/* Painel de Informações e Compra/Detalhes */}
                 <div className="details-info">
-                    <div className="detail-top">
-                        <div>
+                    <div className="detail-header">
+                        <div className="brand-group">
                             <span className="eyebrow">{guitar.brand}</span>
                             <h1>{guitar.model}</h1>
                         </div>
@@ -46,30 +58,41 @@ function GuitarDetails({ guitar, onBack, favorites = [], onToggleFavorite }) {
                         <button
                             className={`detail-heart ${isFavorite ? 'liked' : ''}`}
                             onClick={() => onToggleFavorite(guitar.id)}
+                            title={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                         >
                             {isFavorite ? '♥' : '♡'}
                         </button>
                     </div>
 
-                    <p className="description">
-                        Mais famoso por: <strong>{guitar.mostFamousUser || '-'}</strong>
-                    </p>
+                    {/* Banner de Usuário Icônico */}
+                    {guitar.mostFamousUser && (
+                        <div className="artist-highlight-banner">
+                            <span className="icon">★</span>
+                            <p>
+                                Modelo imortalizado nas mãos de <strong>{guitar.mostFamousUser}</strong>.
+                            </p>
+                        </div>
+                    )}
 
-                    <div className="status">
-                        <span>Status</span>
-                        <strong>{guitar.status || '-'}</strong>
+                    {/* Status do Instrumento */}
+                    <div className="status-badge-container">
+                        <span className="status-label">Disponibilidade / Edição:</span>
+                        <span className="status-tag">{guitar.status || 'Edição Padrão'}</span>
                     </div>
 
-                    <div className="spec-grid">
-                        <Spec label="Ano de lançamento" value={guitar.launchYear} />
-                        <Spec label="Usuário mais famoso" value={guitar.mostFamousUser} />
-                        <Spec label="Cor principal" value={guitar.primaryColor} />
-                        <Spec label="Cor / acabamento" value={guitar.colorOrFinish} />
-                        <Spec label="Tipo" value={guitar.guitarType} />
-                        <Spec label="País de origem" value={guitar.countryOfOrigin} />
-                        <Spec label="Captadores" value={guitar.pickupConfiguration} />
-                        <Spec label="Madeira do corpo" value={guitar.bodyWood} />
-                        <Spec label="Construção do braço" value={guitar.neckConstruction} />
+                    {/* Especificações Técnicas */}
+                    <div className="specs-section">
+                        <h3>Especificações do Instrumento</h3>
+                        <div className="spec-grid">
+                            <Spec label="Ano de Lançamento" value={guitar.launchYear} />
+                            <Spec label="País de Origem" value={guitar.countryOfOrigin} />
+                            <Spec label="Cor Principal" value={guitar.primaryColor} />
+                            <Spec label="Acabamento" value={guitar.colorOrFinish} />
+                            <Spec label="Tipo de Corpo" value={guitar.guitarType} />
+                            <Spec label="Captadores" value={guitar.pickupConfiguration} />
+                            <Spec label="Madeira do Corpo" value={guitar.bodyWood} />
+                            <Spec label="Construção do Braço" value={guitar.neckConstruction} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,9 +102,9 @@ function GuitarDetails({ guitar, onBack, favorites = [], onToggleFavorite }) {
 
 function Spec({ label, value }) {
     return (
-        <div>
-            <span>{label}</span>
-            <strong>{value || '-'}</strong>
+        <div className="spec-card">
+            <span className="spec-label">{label}</span>
+            <strong className="spec-value">{value || '-'}</strong>
         </div>
     )
 }
