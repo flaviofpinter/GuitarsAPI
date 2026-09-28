@@ -14,7 +14,8 @@ public record Guitar(
         @ColumnName("pickupConfiguration") String pickupConfiguration,
         @ColumnName("bodyWood") String bodyWood,
         @ColumnName("neckConstruction") String neckConstruction,
-        @ColumnName("status") String status) {
+        @ColumnName("status") String status,
+        @ColumnName("priceusd") String priceusd) {
     @Override
     public String toString() {
         return "Guitar{" +
@@ -30,6 +31,7 @@ public record Guitar(
                 ", bodyWood='" + bodyWood + '\'' +
                 ", neckConstruction='" + neckConstruction + '\'' +
                 ", status='" + status + '\'' +
+                ", priceusd='" + priceusd + '\'' +
                 '}';
     }
 }

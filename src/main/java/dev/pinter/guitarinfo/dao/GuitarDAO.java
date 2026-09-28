@@ -51,7 +51,8 @@ public interface GuitarDAO {
                 pickupConfiguration,
                 bodyWood,
                 neckConstruction,
-                status
+                status,
+                priceusd
             )
             VALUES
             (
@@ -66,7 +67,8 @@ public interface GuitarDAO {
                 :pickupConfiguration,
                 :bodyWood,
                 :neckConstruction,
-                :status
+                :status,
+                :priceusd
             )
             """)
     @GetGeneratedKeys

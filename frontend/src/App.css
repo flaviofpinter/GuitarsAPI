@@ -1172,3 +1172,31 @@ button {
         align-items: flex-start;
     }
 }
+
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 12px 0 16px;
+}
+
+.price-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #8b8178;
+}
+
+.product-price strong {
+    font-size: 1.45rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #171411;
+}
+
+.price-unavailable {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #8b8178;
+}

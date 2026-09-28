@@ -40,6 +40,21 @@ const GUITARISTS = [
     },
 ]
 
+const formatPrice = (price) => {
+    const value = Number(price)
+
+    if (!Number.isFinite(value)) {
+        return null
+    }
+
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+    }).format(value)
+}
+
+
 function Catalog({
                      onDetails,
                      onFavorites,
@@ -67,13 +82,23 @@ function Catalog({
                 limit,
                 offset
             )
-
             const formattedData = (data || []).map((guitar, index) => ({
                 ...guitar,
                 id:
                     guitar.id ??
                     `${guitar.brand}-${guitar.model}-${index}`,
+                priceusd:
+                    guitar.priceusd != null
+                        ? Number(guitar.priceusd)
+                        : null,
             }))
+
+            // const formattedData = (data || []).map((guitar, index) => ({
+            //     ...guitar,
+            //     id:
+            //         guitar.id ??
+            //         `${guitar.brand}-${guitar.model}-${index}`,
+            // }))
 
             setGuitars(formattedData)
         } catch (error) {
@@ -453,6 +478,24 @@ function Catalog({
                                                 {guitar.model}
                                             </h3>
 
+                                            <div className="product-price">
+                                                {formatPrice(guitar.priceusd) ? (
+                                                    <>
+                                                        <span className="price-label">
+                                                            POR
+                                                        </span>
+
+                                                        <strong>
+                                                            {formatPrice(guitar.priceusd)}
+                                                        </strong>
+                                                    </>
+                                                ) : (
+                                                    <span className="price-unavailable">
+                                                        Consulte o preço
+                                                    </span>
+                                                )}
+                                            </div>
+
                                             <p className="famous-user">
                                                 <span>
                                                     Associada a
@@ -466,8 +509,7 @@ function Catalog({
 
                                             <div className="product-meta">
                                                 <span>
-                                                    {guitar.launchYear ||
-                                                        '—'}
+                                                    {guitar.launchYear || '—'}
                                                 </span>
 
                                                 <span>
@@ -477,20 +519,18 @@ function Catalog({
 
                                             <button
                                                 className="details-button"
-                                                onClick={() =>
-                                                    onDetails(
-                                                        guitar
-                                                    )
-                                                }
+                                                onClick={() => onDetails(guitar)}
                                             >
                                                 <span>
                                                     Ver guitarra
                                                 </span>
+
                                                 <strong>
                                                     →
                                                 </strong>
                                             </button>
                                         </div>
+
                                     </article>
                                 )
                             })}

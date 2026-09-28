@@ -36,7 +36,8 @@ public class DatabaseInitializer {
                 pickupConfiguration,
                 bodyWood,
                 neckConstruction,
-                status
+                status,
+                priceusd
             ) VALUES (
                 :brand,
                 :model,
@@ -49,7 +50,8 @@ public class DatabaseInitializer {
                 :pickupConfiguration,
                 :bodyWood,
                 :neckConstruction,
-                :status
+                :status,
+                :priceusd
             )
             """;
 
@@ -80,6 +82,7 @@ public class DatabaseInitializer {
                             .bind("bodyWood", g.bodyWood)
                             .bind("neckConstruction", g.neckConstruction)
                             .bind("status", g.status)
+                            .bind("priceusd", g.priceUsd)
                             .execute();
                 }
             });
@@ -133,6 +136,7 @@ public class DatabaseInitializer {
                           @JsonProperty("Pickup_Configuration") String pickupConfiguration,
                           @JsonProperty("Body_Wood") String bodyWood,
                           @JsonProperty("Neck_Construction") String neckConstruction,
-                          @JsonProperty("Status") String status) {
+                          @JsonProperty("Status") String status,
+                          @JsonProperty("Estimated_Price_USD") int priceUsd) {
     }
 }

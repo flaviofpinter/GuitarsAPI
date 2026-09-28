@@ -12,5 +12,6 @@ CREATE TABLE guitars
     pickupConfiguration VARCHAR(255),
     bodyWood            VARCHAR(255),
     neckConstruction    VARCHAR(255),
-    status              VARCHAR(255)
+    status              VARCHAR(255),
+    priceusd          INTEGER
 );
