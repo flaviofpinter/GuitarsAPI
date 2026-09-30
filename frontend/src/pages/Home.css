@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Montserrat:wght@400;600;700;800;900&family=Oswald:wght@700&display=swap');
+
+:root,
+html,
+body,
+#root {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100vh;
+    background-color: #0c0d0e !important;
+    overflow-x: hidden;
+}
+
+:root {
+    --bg-black: #000000;
+    --bg-dark-card: #0d0d10;
+    --border-color: #26262e;
+    --red-bright: #d91424;
+    --text-white: #ffffff;
+    --text-gray: #b0b0ba;
+
+    --font-serif-nav: 'Cinzel', 'Georgia', serif;
+    --font-impact-title: 'Oswald', 'Impact', sans-serif;
+    --font-sans-body: 'Montserrat', sans-serif;
+}
+
+.home-container {
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-sans-body);
+}
+
+
+.riff-navbar {
+    background-color: #000000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 18px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-left {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: var(--text-white);
+    font-family: var(--font-serif-nav);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 4px 0;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid var(--text-white);
+}
+
+.nav-brand {
+    font-family: var(--font-serif-nav);
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--text-white);
+    text-align: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-white);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.15);
+}
+
+
+.hero-gif-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.bg-gif {
+    width: 100%;
+    max-width: 1300px;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.guitarists-section {
+    max-width: 1250px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    gap: 24px;
+}
+
+.section-tag {
+    color: var(--red-bright);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-family: var(--font-impact-title);
+    font-size: 2.5rem;
+    margin: 6px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-description {
+    color: var(--text-gray);
+    max-width: 420px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.guitarists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.guitarist-card {
+    position: relative;
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.guitarist-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--red-bright);
+}
+
+.card-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.guitarist-card:hover .card-bg-image {
+    transform: scale(1.05);
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.card-style {
+    font-size: 0.75rem;
+    color: var(--red-bright);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.card-name {
+    font-family: var(--font-impact-title);
+    font-size: 1.5rem;
+    margin: 0;
+    text-transform: uppercase;
+}

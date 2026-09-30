@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Montserrat:wght@400;600;700;800;900&family=Oswald:wght@700&display=swap');
+
+.details-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.back-link-btn {
+    background: none;
+    border: none;
+    color: var(--red-bright);
+    font-family: var(--font-sans-body);
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+}
+
+.back-link-btn:hover {
+    opacity: 0.75;
+}
+
+.breadcrumb-sep {
+    color: var(--text-muted);
+}
+
+.breadcrumb-brand {
+    color: var(--text-gray);
+    text-transform: uppercase;
+}
+
+.breadcrumb-model {
+    color: var(--text-white);
+    text-transform: uppercase;
+}
+
+
+.details-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 36px;
+    margin-bottom: 48px;
+    background-color: var(--bg-dark-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 28px;
+}
+
+.details-image-container {
+    position: relative;
+    background-color: #050507;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px 16px 20px;
+    min-height: 380px;
+}
+
+.details-image-container img {
+    max-height: 320px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.image-caption-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+
+.details-info-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-title {
+    font-family: var(--font-impact-title);
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+    margin: 4px 0 8px 0;
+    text-transform: uppercase;
+}
+
+.details-subtitle {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    margin: 0 0 16px 0;
+}
+
+.details-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.stars-ic {
+    color: var(--red-bright);
+    letter-spacing: 2px;
+}
+
+.details-price-box {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--red-bright);
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.price-box-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+.price-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+}
+
+.details-status-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.status-indicator-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--red-bright);
+    border-radius: 50%;
+    margin-top: 6px;
+    box-shadow: 0 0 8px var(--red-bright);
+}
+
+.details-status-row strong {
+    font-size: 0.85rem;
+    color: var(--text-white);
+    display: block;
+}
+
+.details-status-row p {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    margin: 2px 0 0 0;
+}
+
+.details-actions-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.details-actions-row .details-btn {
+    flex: 1;
+}
+
+
+.details-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: auto;
+}
+
+.benefit-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.benefit-icon {
+    color: var(--red-bright);
+    font-size: 1.1rem;
+}
+
+.benefit-card strong {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    display: block;
+    color: var(--text-white);
+}
+
+.benefit-card small {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+
+.details-section-box {
+    background-color: var(--bg-dark-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 32px;
+    margin-bottom: 32px;
+}
+
+.details-section-header {
+    margin-bottom: 24px;
+}
+
+.details-section-header h2 {
+    font-family: var(--font-impact-title);
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin: 6px 0 6px 0;
+}
+
+.details-section-header p {
+    color: var(--text-gray);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* HISTÓRIA */
+.story-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.story-card-item {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.story-num {
+    font-family: var(--font-impact-title);
+    font-size: 1.8rem;
+    color: var(--red-bright);
+}
+
+.story-card-item h3 {
+    font-family: var(--font-impact-title);
+    font-size: 1.3rem;
+    margin: 4px 0 8px 0;
+    text-transform: uppercase;
+}
+
+.story-card-item p {
+    color: var(--text-gray);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.spec-card {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.spec-value {
+    font-size: 0.95rem;
+    color: var(--text-white);
+}
+
+
+.artist-highlight-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.artist-text-content {
+    max-width: 650px;
+}
+
+.artist-text-content h2 {
+    font-family: var(--font-impact-title);
+    font-size: 2.2rem;
+    margin: 6px 0 12px 0;
+}
+
+.artist-text-content p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.artist-meta-tags {
+    display: flex;
+    gap: 8px;
+    color: var(--red-bright);
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-top: 16px;
+    text-transform: uppercase;
+}
+
+.artist-icon-visual {
+    font-size: 4rem;
+    opacity: 0.2;
+}
+
+
+.details-cta-box {
+    background-color: var(--bg-dark-card);
+    border: 1px solid var(--red-burgundy);
+    border-radius: 8px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.details-cta-box h2 {
+    font-family: var(--font-impact-title);
+    font-size: 2.2rem;
+    margin: 6px 0 0 0;
+}
+
+.cta-action-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (max-width: 850px) {
+    .details-hero-grid,
+    .story-cards-grid,
+    .artist-highlight-box,
+    .details-cta-box {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .details-benefits-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.artist-avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.artist-avatar-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--red-bright);
+    box-shadow: 0 0 20px var(--red-glow), 0 8px 24px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.artist-avatar-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 28px var(--red-glow), 0 12px 30px rgba(217, 20, 36, 0.4);
+}
+
+.artist-icon-visual {
+    font-size: 4rem;
+    opacity: 0.25;
+}
