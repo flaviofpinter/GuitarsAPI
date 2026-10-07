@@ -79,5 +79,5 @@ public interface GuitarDAO {
         FROM guitars
         WHERE id = :id
     """)
-    Integer getPriceById(long id);
+    Integer getPriceById(@Bind("id") long id);
 }

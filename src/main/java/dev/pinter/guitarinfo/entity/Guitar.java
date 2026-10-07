@@ -3,6 +3,7 @@ package dev.pinter.guitarinfo.entity;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public record Guitar(
+        @ColumnName("id") int id,
         @ColumnName("brand") String brand,
         @ColumnName("model") String model,
         @ColumnName("launchYear") String launchYear,
@@ -16,6 +17,7 @@ public record Guitar(
         @ColumnName("neckConstruction") String neckConstruction,
         @ColumnName("status") String status,
         @ColumnName("priceusd") String priceusd) {
+
     @Override
     public String toString() {
         return "Guitar{" +
