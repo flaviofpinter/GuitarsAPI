@@ -73,4 +73,11 @@ public interface GuitarDAO {
             """)
     @GetGeneratedKeys
     long insert(@BindMethods Guitar guitar);
+
+    @SqlQuery("""
+        SELECT priceusd
+        FROM guitars
+        WHERE id = :id
+    """)
+    Integer getPriceById(long id);
 }

@@ -62,6 +62,8 @@ public class DatabaseInitializer {
     public int initDatabase() {
         try {
             createTableJdbi("/h2schemas/guitars.sql", jdbi);
+            createTableJdbi("/h2schemas/orders.sql", jdbi);
+            createTableJdbi("/h2schemas/order_items.sql", jdbi);
         } catch (IOException e) {
             logger.error("Erro criando tabela", e);
         }
