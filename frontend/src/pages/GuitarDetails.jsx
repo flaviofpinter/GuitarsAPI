@@ -31,6 +31,7 @@ export function GuitarDetails({
                                   onNavigateToProfile,
                                   favorites = [],
                                   onToggleFavorite,
+                                  onAddToCart,
                               }) {
     const handleGoHome = () => {
         if (onNavigateToHome) {
@@ -230,6 +231,14 @@ export function GuitarDetails({
                                 {isFavorite ? '♥ REMOVER DOS FAVORITOS' : '♡ ADICIONAR AOS FAVORITOS'}
                             </button>
 
+                            <button
+                                className="details-btn"
+                                onClick={() => onAddToCart?.(guitar)}
+                                disabled={!Number.isInteger(Number(guitar.id))}
+                                title={!Number.isInteger(Number(guitar.id)) ? 'ID inválido para compra' : 'Adicionar ao carrinho'}
+                            >
+                                ADICIONAR AO CARRINHO
+                            </button>
                             <button className="pag-btn" onClick={onBack}>
                                 CONTINUAR EXPLORANDO
                             </button>

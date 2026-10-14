@@ -21,6 +21,7 @@ export function Catalog({
                             onDetails,
                             favorites = [],
                             onToggleFavorite,
+                            onAddToCart,
                         }) {
     const [guitars, setGuitars] = useState([])
     const [loading, setLoading] = useState(true)
@@ -258,9 +259,19 @@ export function Catalog({
                                                 )}
                                             </div>
 
-                                            <button className="details-btn" onClick={() => onDetails(guitar)}>
-                                                VER DETALHES
-                                            </button>
+                                            <div className="product-actions">
+                                                <button className="details-btn" onClick={() => onDetails(guitar)}>
+                                                    VER DETALHES
+                                                </button>
+                                                <button
+                                                    className="details-btn"
+                                                    onClick={() => onAddToCart?.(guitar)}
+                                                    disabled={!Number.isInteger(Number(guitar.id))}
+                                                    title={!Number.isInteger(Number(guitar.id)) ? 'ID inválido para compra' : 'Adicionar ao carrinho'}
+                                                >
+                                                    ADICIONAR AO CARRINHO
+                                                </button>
+                                            </div>
                                         </div>
                                     </article>
                                 )
