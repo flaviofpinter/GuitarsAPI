@@ -22,9 +22,6 @@ function Favorites({
         try {
             setLoading(true)
 
-            // GET /guitars/{id}
-            // para cada guitarra favoritada
-
             const results = await Promise.all(favorites.map((id) => getGuitar(id)))
 
             setGuitars(results)
